@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+
+	<camelContext xmlns="http://camel.apache.org/schema/blueprint">
+		<dataFormats>
+			<json id="pojo" library="Jackson"
+				unmarshalTypeName="mx.com.actinver.biva.retransmision.modelo.SolicitudDeRetransmision" />
+		</dataFormats>
+		<route id="PeticionRetransmision">
+			<from uri="activemq:queue:BIVA.RETRANSMISION" />
+			<log message="Solicitud: ${body}"/>
+			<unmarshal ref="pojo"/>
+			<to uri="seda:generapeticion"/>
+		</route>
+
+		<route>
+			<from uri="seda:generapeticion"/>
+			<log message="Solicitud: ${body}"/>
+			<process ref="generapeticion"/>
+		</route>
+		
+		<route autoStartup="true" id="procesaRetransmision">
+			<from id="leerMensajeFeedUnico" uri="seda:procesaRetransmision" />
+			<wireTap id="respladaMensajeEnLog"
+					uri="file:/opt/rh/jbossfuse?fileName=RetransmisionBinario-${date:now:ddMMyyyySS}.bin&amp;fileExist=Append" />
+			<log message="Recibido: ${body}"/>
+			<process id="decodificaGrupoDeMensajes" ref="decodificadorFeedUnico" />
+			<split id="divideListaDeJSON">
+				<simple>${body}</simple>
+				<transform id="agregaSaltoDeLinea">
+					<simple>${in.body}\n</simple>
+				</transform>
+				<wireTap id="respladaMensajeEnLog"
+					uri="file:/opt/rh/jbossfuse?fileName=BIVA-${date:now:ddMMyyyy}.txt&amp;fileExist=Append" />
+				<to id="enviarJMS" uri="activemq:queue:BIVA.ITCH.FEED?deliveryPersistent=true" />
+			</split>
+		</route>
+	</camelContext>
+</blueprint>
