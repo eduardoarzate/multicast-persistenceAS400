@@ -18,5 +18,13 @@ package mx.com.actinver.multicast.error;
 public class ErrorDeBaseDeDatos extends Exception {
 
 	private static final String MENSAJE_DE_ERROR = "Error de base de datos.";
+	
+	public ErrorDeBaseDeDatos() {
+		super(MENSAJE_DE_ERROR);
+	}
+	
+	public ErrorDeBaseDeDatos(String mensaje) {
+		super(mensaje);
+	}
 
 }

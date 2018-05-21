@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>mx.com.actinver.multicast</groupId>
-	<artifactId>persistence-multicast</artifactId>
+	<artifactId>persistencia-multicast</artifactId>
 	<packaging>bundle</packaging>
 	<version>0.0.0.1</version>
 	<name>Actinver :: Persistencia AS400</name>
