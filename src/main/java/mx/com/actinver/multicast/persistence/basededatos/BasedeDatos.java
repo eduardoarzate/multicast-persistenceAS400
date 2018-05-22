@@ -319,175 +319,418 @@ public class BasedeDatos implements PersistenciaBasedeDatos{
 	}
 
 	@Override
-	public void registraEnBMV_WARRANTS(c mensajec) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_WARRANTS(c mensajec) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajec == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_c);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_WARRANTS);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 			
-			String sqlObtener = "SELECT * FROM BWPMOF WHERE NUMERO_INSTRUMENTO = :numero_instrumento";
-			 
-				
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_WARRANTS, mapSqlParameterSource);
+			String sql = "SELECT * FROM BMV_WARRANTS WHERE NUMERO_INSTRUMENTO = :numero_instrumento";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_WARRANTS, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_WARRANTS, mapSqlParameterSource);
+	        }
+	        
 		} catch (DataAccessException dataAccessException) {
-			
+			LOGGER.error(ERROR_INSERT_BMV_WARRANTS, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_TRAC(e mensajee) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_TRAC(e mensajee) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajee == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_e);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_TRAC);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_TRAC, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_TRAC WHERE NUMERO_TRAC = :numero_trac and EMISORA = :emisora  and SERIE = :serie";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_TRAC, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_TRAC, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_TRAC, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_ESTADO_INSTRUMENTO(cuatro mensaje4) {
+	public Boolean registraEnBMV_ESTADO_INSTRUMENTO(cuatro mensaje4) {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensaje4 == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_4);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_ESTADO_INSTRUMENTO);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ESTADO_INSTRUMENTO, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_ESTADO_INSTRUMENTO WHERE NUMERO_INSTRUMENTO = :numero_instrumento";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ESTADO_INSTRUMENTO, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ESTADO_INSTRUMENTO, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_ESTADO_INSTRUMENTO, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_SOCIEDADES_INVERSION(f mensajef) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_SOCIEDADES_INVERSION(f mensajef) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajef == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_f);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_SOCIEDADES_INVERSION);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_SOCIEDADES_INVERSION, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_SOCIEDADES_INVERSION WHERE NUMINST = :numinst";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_SOCIEDADES_INVERSION, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_SOCIEDADES_INVERSION, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_SOCIEDADES_INVERSION, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_UHECHO(P mensajeP) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_UHECHO(P mensajeP) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajeP == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_P);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_UHECHO);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_UHECHO, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_UHECHO WHERE REGISTRO = :registro";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_UHECHO, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_UHECHO, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_UHECHO, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_DEUDA(b mensajeb) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_DEUDA(b mensajeb) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajeb == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_b);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_DEUDA);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_DEUDA, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_DEUDA WHERE NUMERO_INSTRUMENTO = :numero_instrumento";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_DEUDA, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_DEUDA, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_DEUDA, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_CORRO_VENTA(o mensajeo) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_CORRO_VENTA(o mensajeo) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajeo == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_o);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_CORRO_VENTA);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_VENTA, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_CORRO_VENTA WHERE REGISTRO = :registro";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_VENTA, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_VENTA, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_CORRO_VENTA, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_CORRO_COMPRA(o mensajeo) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_CORRO_COMPRA(o mensajeo) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajeo == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_o);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_CORRO_COMPRA);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_COMPRA, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_CORRO_COMPRA WHERE REGISTRO = :registro";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_COMPRA, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_CORRO_COMPRA, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_CORRO_COMPRA, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBMV_ACCIONARIO(a mensajea) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBMV_ACCIONARIO(a mensajea) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(mensajea == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_MENSAJE_a);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_BMV_ACCIONARIO);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ACCIONARIO, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM BMV_ACCIONARIO WHERE NUMINST = :numinst";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ACCIONARIO, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BMV_ACCIONARIO, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BMV_ACCIONARIO, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnTRMPRFV(Profundidad notificacionDeProfundidad) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnTRMPRFV(Profundidad notificacionDeProfundidad) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(notificacionDeProfundidad == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_PROFUNDIDAD_NULA);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_TRMPRFV);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFV, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM TRMPRFV WHERE EMISORA = :emisora and SERIE = :serie";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFV, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFV, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_TRMPRFV, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnTRMPRFC(Profundidad notificacionDeProfundidad) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnTRMPRFC(Profundidad notificacionDeProfundidad) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(notificacionDeProfundidad == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_PROFUNDIDAD_NULA);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_TRMPRFC);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFC, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM TRMPRFC WHERE EMISORA = :emisora and SERIE = :serie";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFC, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMPRFC, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_TRMPRFC, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnTRMUHECH(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnTRMUHECH(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(notificacionDeEmisora == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_EMISORA_NULA);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_TRMUHECH);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMUHECH, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM TRMUHECH WHERE ISIN = :isin";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMUHECH, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMUHECH, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_TRMUHECH, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnTRMCORRO(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnTRMCORRO(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		Statement stmt = null;
+		if(notificacionDeEmisora == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_EMISORA_NULA);
+		}else {
+		
 		try {
 			
+			LOGGER.debug(MENSAJE_INSERT_TRMCORRO);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMCORRO, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+			String sql = "SELECT * FROM TRMCORRO WHERE ISIN = :isin";
+	        ResultSet rs = stmt.executeQuery(sql);
+	        
+	        if(rs.getRow() != 0) {
+	        	//mapear los campos
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMCORRO, mapSqlParameterSource);
+	        }else {
+	        	//mapear para actualizar
+	        	filasInsertadas = namedParameterJdbcTemplate.update(INSERT_TRMCORRO, mapSqlParameterSource);
+	        }
+	        
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_TRMCORRO, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
@@ -531,68 +774,95 @@ public class BasedeDatos implements PersistenciaBasedeDatos{
 	}
 
 	@Override
-	public void registraEnBVISEF(Indice notificacionDeIndice) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBVISEF(Indice notificacionDeIndice) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		if(notificacionDeIndice == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_INDICE_NULA);
+		}else {
 		try {
-			
+			LOGGER.debug(MENSAJE_INSERT_BVISEF);
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BVISEF, mapSqlParameterSource);
-		} catch (DataAccessException dataAccessException) {
 			
+		   	//mapear los campos
+	        filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BVISEF, mapSqlParameterSource);
+
+		} catch (DataAccessException dataAccessException) {
+			LOGGER.error(ERROR_INSERT_BVISEF, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBVDTRC(Tracs notificacionDeTracs) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBVDTRC(Tracs notificacionDeTracs) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		if(notificacionDeTracs == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_TRACS_NULA);
+		}else {
 		try {
-			
+			//*
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BVDTRC, mapSqlParameterSource);
 		} catch (DataAccessException dataAccessException) {
-			
+		LOGGER.error(ERROR_INSERT_BVDTRC, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBVORDF(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBVORDF(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		if(notificacionDeEmisora == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_EMISORA_NULA);
+		}else {
 		try {
-			
+			//insert
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BVORDF, mapSqlParameterSource);
 		} catch (DataAccessException dataAccessException) {
-			
+			LOGGER.error(ERROR_INSERT_BVORDF, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBWPMOO(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBWPMOO(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		if(notificacionDeEmisora == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_EMISORA_NULA);
+		}else {
 		try {
-			
+			//UPDATE
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BWPMOO, mapSqlParameterSource);
 		} catch (DataAccessException dataAccessException) {
-			
+			LOGGER.error(ERROR_INSERT_BWPMOO, dataAccessException);
 		}
+		}
+		return (filasInsertadas == 1) ? true : false;
 		
 	}
 
 	@Override
-	public void registraEnBWPMOF(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
+	public Boolean registraEnBWPMOF(Emisora notificacionDeEmisora) throws ErrorDeBaseDeDatos {
 		int filasInsertadas = 0;
+		if(notificacionDeEmisora == null) {
+			throw new ErrorDeBaseDeDatos(ERROR_NOTIF_EMISORA_NULA);
+		}else {
 		try {
-			
+			//update
 			MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 			filasInsertadas = namedParameterJdbcTemplate.update(INSERT_BWPMOF, mapSqlParameterSource);
 		} catch (DataAccessException dataAccessException) {
-			
+			LOGGER.error(ERROR_INSERT_BWPMOF, dataAccessException);
 		}
-		
+		}
+		return (filasInsertadas == 1) ? true : false;
 	}
 
 	
